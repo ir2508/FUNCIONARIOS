@@ -11,7 +11,7 @@ using SistemaDeFuncionarios.Contexts;
 namespace SistemaDeFuncionarios.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230722040650_CreateTableFuncionario")]
+    [Migration("20230726053128_CreateTableFuncionario")]
     partial class CreateTableFuncionario
     {
         /// <inheritdoc />
