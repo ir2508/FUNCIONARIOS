@@ -3425,19 +3425,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\igoro\\.nuget\\packages\\": {}
+    "C:\\Users\\Igor Roberto\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\igoro\\OneDrive\\Documents\\_csharp\\SistemaDeFuncionarios\\SistemaDeFuncionarios.csproj",
+      "projectUniqueName": "C:\\Users\\Igor Roberto\\OneDrive\\Documents\\__csharp\\SistemaDeFuncionarios\\SistemaDeFuncionarios.csproj",
       "projectName": "SistemaDeFuncionarios",
-      "projectPath": "C:\\Users\\igoro\\OneDrive\\Documents\\_csharp\\SistemaDeFuncionarios\\SistemaDeFuncionarios.csproj",
-      "packagesPath": "C:\\Users\\igoro\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\igoro\\OneDrive\\Documents\\_csharp\\SistemaDeFuncionarios\\obj\\",
+      "projectPath": "C:\\Users\\Igor Roberto\\OneDrive\\Documents\\__csharp\\SistemaDeFuncionarios\\SistemaDeFuncionarios.csproj",
+      "packagesPath": "C:\\Users\\Igor Roberto\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Igor Roberto\\OneDrive\\Documents\\__csharp\\SistemaDeFuncionarios\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\igoro\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Igor Roberto\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"

@@ -1,18 +1,19 @@
-﻿using SistemaDeFuncionarios.Contexts;
+﻿using System.Net.WebSockets;
+using SistemaDeFuncionarios.Contexts;
 using SistemaDeFuncionarios.Models;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        string opcao;
+        string opcao, ordem;
 
         var db = new AppDbContext();
         do
         {
 
             Console.WriteLine("\n===== BEM-VINDO AO SISTEMA DE FUNCIONÁRIOS =====");
-            Console.WriteLine("[1] Ver Funcionários | [2] Cadastrar Funcionário | [3] Editar Funcionário | [4] Excluir Funcionário | [-1] Sair");
+            Console.WriteLine("[1] Ver Todos Funcionários | [2] Pesquisar Funcionário | [3] Cadastrar Funcionário | [4] Editar Funcionário | [5] Excluir Funcionário | [-1] Sair");
             Console.Write("Informe a opção desejada: ");
             opcao = Console.ReadLine();
 
@@ -29,13 +30,59 @@ internal class Program
                 case "1":
                     Console.WriteLine("\n===== FUNCIONÁRIOS CADASTRADOS =====");
 
-                    foreach (var funcionario in db.Funcionario.ToList<Funcionario>())
+                    Console.WriteLine("\n===== ORDENAR POR =====");
+                    Console.WriteLine("[1] Funcionário | [2] Departamento | [3] Salário");
+                    Console.Write("Informe a opção desejada: ");
+                    ordem = Console.ReadLine();
+                    Console.WriteLine("\n====================================");
+
+                    switch (ordem)
+                    {
+                        case "1":
+                            foreach (var funcionario in db.Funcionario.ToList<Funcionario>().OrderBy(f => f.Nome))
+                            {
+                                Console.WriteLine($"Id: {funcionario.Id} | Nome: {funcionario.Nome} | CPF: {funcionario.Cpf} | Cargo: {funcionario.Cargo} | Nível: {funcionario.NivelExperiencia} | Departamento: {funcionario.Departamento} | Salário: R$ {funcionario.Salario}");
+                            }
+                            break;
+
+                        case "2":
+                            foreach (var funcionario in db.Funcionario.ToList<Funcionario>().OrderBy(f => f.Departamento))
+                            {
+                                Console.WriteLine($"Id: {funcionario.Id} | Nome: {funcionario.Nome} | CPF: {funcionario.Cpf} | Cargo: {funcionario.Cargo} | Nível: {funcionario.NivelExperiencia} | Departamento: {funcionario.Departamento} | Salário: R$ {funcionario.Salario}");
+                            }
+                            break;
+
+                        case "3":
+                            foreach (var funcionario in db.Funcionario.ToList<Funcionario>().OrderBy(f => f.Salario))
+                            {
+                                Console.WriteLine($"Id: {funcionario.Id} | Nome: {funcionario.Nome} | CPF: {funcionario.Cpf} | Cargo: {funcionario.Cargo} | Nível: {funcionario.NivelExperiencia} | Departamento: {funcionario.Departamento} | Salário: R$ {funcionario.Salario}");
+                            }
+                            break;
+
+                        default:
+                            foreach (var funcionario in db.Funcionario.ToList<Funcionario>())
+                            {
+                                Console.WriteLine($"Id: {funcionario.Id} | Nome: {funcionario.Nome} | CPF: {funcionario.Cpf} | Cargo: {funcionario.Cargo} | Nível: {funcionario.NivelExperiencia} | Departamento: {funcionario.Departamento} | Salário: R$ {funcionario.Salario}");
+                            }
+                            break;
+                    }
+
+                    break;
+
+                case "2":
+                    string funcionarioPesquisar;
+                    Console.WriteLine("\n====================================");
+                    Console.Write("Informe o nome do funcionário que deseja buscar: ");
+                    funcionarioPesquisar = Console.ReadLine();
+                    
+                    Console.WriteLine("\n====================================");
+                    foreach (var funcionario in db.Funcionario.ToList().Where(f => f.Nome.ToLower().Contains(funcionarioPesquisar.ToLower())))
                     {
                         Console.WriteLine($"Id: {funcionario.Id} | Nome: {funcionario.Nome} | CPF: {funcionario.Cpf} | Cargo: {funcionario.Cargo} | Nível: {funcionario.NivelExperiencia} | Departamento: {funcionario.Departamento} | Salário: R$ {funcionario.Salario}");
                     }
                     break;
 
-                case "2":
+                case "3":
                     // bool novoCadastro = false;
                     // do 
                     // {
@@ -69,7 +116,7 @@ internal class Program
                     // } while(novoCadastro);
                     break;
 
-                case "3":
+                case "4":
                     int idAtualizar;
                     Console.Write("\nInforme o Id do funcionário que deseja alterar: ");
                     idAtualizar = Convert.ToInt16(Console.ReadLine());
@@ -88,7 +135,14 @@ internal class Program
                     funcAtualizar.Cpf = Console.ReadLine();
 
                     Console.Write("Informe o salário: ");
-                    funcAtualizar.Salario = Convert.ToDecimal(Console.ReadLine());
+                    try
+                    {
+                        funcAtualizar.Salario = Convert.ToDecimal(Console.ReadLine());
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Salário inválido... Tente novamente");
+                    }
 
                     Console.Write("Informe o cargo: ");
                     funcAtualizar.Cargo = Console.ReadLine();
@@ -101,7 +155,7 @@ internal class Program
 
                     break;
 
-                case "4":
+                case "5":
                     int idRemover;
                     Console.Write("\nInforme o Id do funcionário que deseja remover: ");
                     idRemover = Convert.ToInt16(Console.ReadLine());
@@ -118,7 +172,7 @@ internal class Program
                     db.Remove(funcRemover);
                     break;
             }
-            
+
             db.SaveChanges();
         } while (opcao != "-1");
     }
